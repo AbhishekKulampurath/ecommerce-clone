@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, TouchableOpacityComponent } from 'react-native'
 import React from 'react'
 
 const tabs = [
@@ -29,7 +29,9 @@ const tabs = [
 ]
 export default function Navbar() {
   return (
-    <ScrollView horizontal style={{paddingBottom : 20,paddingTop : 10, backgroundColor:"#fff"}} showsHorizontalScrollIndicator = {false}>
+      
+    <ScrollView horizontal style={{paddingBottom : 5,paddingTop : 7, backgroundColor:"#fff"  }} showsHorizontalScrollIndicator = {false}>
+        <TouchableOpacity>
         <Image
          source={tabs[0].image}
          style = {{
@@ -40,9 +42,12 @@ export default function Navbar() {
              resizeMode:"contain"
          }}
          />
+         </TouchableOpacity>
+         <TouchableOpacity>
          <Image
          source={tabs[1].image}
          style = {{
+             marginRight:120,
              marginLeft : 10,
              width : 80,
              height: 33,
@@ -50,16 +55,20 @@ export default function Navbar() {
              resizeMode:"stretch"
          }}
          />
+         </TouchableOpacity>
+         <TouchableOpacity>
           <Image
          source={tabs[2].image}
          style = {{
-             marginLeft : 120,
+             
             width : 30,
              height: 30,
              marginTop : 7,
              resizeMode:"contain"
          }}
          />
+         </TouchableOpacity>
+         <TouchableOpacity>
           <Image
          source={tabs[3].image}
          style = {{
@@ -70,6 +79,8 @@ export default function Navbar() {
              resizeMode:"contain"
          }}
          />
+         </TouchableOpacity>
+         <TouchableOpacity>
           <Image
          source={tabs[4].image}
          style = {{
@@ -80,16 +91,20 @@ export default function Navbar() {
              resizeMode:"contain"
          }}
          />
+         </TouchableOpacity>
+         <TouchableOpacity>
           <Image
          source={tabs[5].image}
          style = {{
             marginLeft : 10,
             width : 30,
             height: 30,
-            marginTop : 7,
+            marginTop : 6,
              resizeMode:"contain"
          }}
          />
+         </TouchableOpacity>
     </ScrollView>
+    
   )
 }

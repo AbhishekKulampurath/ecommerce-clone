@@ -1,16 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Navbar from '../components/Navbar'
-import Categories from '../components/Categories'
+import Categories from '../components/Filter'
 import Sales from '../components/Sales'
+import Filter from '../components/Filter'
+
 
 export default function Home() {
   return (
     <SafeAreaView>
       <Navbar/>
-      <Categories/>
-      <Sales/>
+      <Filter/>
+      <ScrollView>
+        <Sales/>
+      </ScrollView>
     </SafeAreaView>
-  )
+  );
 }

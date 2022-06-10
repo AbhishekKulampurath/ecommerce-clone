@@ -1,7 +1,11 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const items = [
+const filters = [
+    {
+        image : require ("../assets/images/discount.png"),
+        text  : "Deals"
+    },
     {
         image : require ("../assets/images/men.png"),
         text  : "Men"
@@ -17,10 +21,19 @@ const items = [
     {
         image : require ("../assets/images/footwear.png"),
         text  : "Footwear"
+    },
+    {
+        image : require ("../assets/images/makeup.png"),
+        text  : "Makeup"
+    },
+    {
+        image : require ("../assets/images/accessories.png"),
+        text  : "Accessories"
     }
+    
 ]
 
-export default function Categories() {
+export default function Filter() {
   return (
     
     <View 
@@ -30,9 +43,10 @@ export default function Categories() {
         paddingVertical :10,
     }}
     >
-      <ScrollView horizontal scrollEnabled={false}>
-          {items.map((item,index) => (
+      <ScrollView horizontal scrollEnabled={true} showsHorizontalScrollIndicator = {false}>
+          {filters.map((item,index) => (
           <View key={index} style={{alignItems:"flex-start",marginRight:25, marginLeft:10}}>
+              <TouchableOpacity>
           <Image source={item.image}
            style ={{
               width:65,
@@ -40,7 +54,10 @@ export default function Categories() {
               resizeMode:"contain"
           }}
           />
+            
           <Text style={{fontSize:13, fontWeight :"500",alignSelf:"center"}} >{item.text}</Text>
+          </TouchableOpacity>
+        
 
       </View>
       ))}
