@@ -12,7 +12,7 @@ export default function Home() {
     <SafeAreaView>
       <Navbar/>
       <Filter/>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator = {false}>
         <Sales/>
       </ScrollView>
     </SafeAreaView>
