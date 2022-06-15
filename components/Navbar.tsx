@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../screens/SearchBar";
 import { Input, ListItem } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
+import { SearchData, searchData } from "../data/searchdata";
 
 // interface Props {
 //   item: {
@@ -22,17 +23,6 @@ import { TextInput } from "react-native-gesture-handler";
 //     title: string;
 //   };
 // }
-
-const searchData = [
-  { id: "1", title: "First Item" },
-  { id: "2", title: "Second Item" },
-  { id: "3", title: "Third Item" },
-  { id: "4", title: "Fourth Item" },
-  { id: "5", title: "Fifth Item" },
-  { id: "6", title: "Seventh Item" },
-  { id: "7", title: "Eighth Item" },
-  { id: "8", title: "Ninth Item" },
-];
 
 const tabs = [
   {
@@ -72,11 +62,29 @@ export default function Navbar() {
   const [isSearchBtnClicked, setIsSearchBtnClicked] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isSearchCleared, setIsSearchCleared] = useState(false);
+  const [filteredData, setFilteredData] = useState<SearchData[]>(searchData);
 
   useEffect(() => {
     console.log(searchText);
+    if (searchText == "") {
+      setFilteredData(searchData);
+    } else {
+      setFilteredData(result);
+    }
   }, [searchText]);
 
+  useEffect(() => {
+    console.log(filteredData);
+  }, [filteredData]);
+
+  //SearchResult
+  const result = searchData.filter((title) => {
+    if (title.title.startsWith(searchText) !== null) {
+      return title.title.startsWith(searchText);
+    }
+  });
+
+  //OnsearchClick
   const onSearchToggle = () => {
     setIsSearchBtnClicked(!isSearchBtnClicked);
     console.log("Button clicked");
@@ -91,8 +99,32 @@ export default function Navbar() {
     nativeEvent: { text },
   }: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setSearchText(text);
-    if (searchText == "") {
-    }
+  };
+
+  // searchData.forEach(e => {
+  //   searchData?.length > 0 && searchData?.filter((e) => e.title === text)
+  // });
+
+  // if (
+  //   searchData?.length > 0 &&
+  //   searchData?.filter((u) => u?.title === text) === true
+  // ) {
+  //   setFilteredData(
+  //     searchData?.length > 0 && searchData?.filter((u) => u?.title === text)
+  //   );
+  // }
+  // };
+
+  const ItemSeperatorView = () => {
+    return (
+      <View
+        style={{
+          height: 0.5,
+          width: "100%",
+          backgroundColor: "#c8c8c",
+        }}
+      />
+    );
   };
 
   // const ItemView = ({item}) => {
@@ -145,25 +177,20 @@ export default function Navbar() {
               onChange={onSearchChange}
               value={searchText}
             />
-            <TouchableOpacity onPress={clearSearch}>
+            <TouchableOpacity onPressIn={clearSearch}>
               <Image source={tabs[7].image} style={styles.clearButton} />
             </TouchableOpacity>
             {/* <TouchableOpacity>
             <Image source={tabs[2].image} style={styles.MenuIcon} />
           </TouchableOpacity> */}
           </ScrollView>
-          {/* <FlatList
-            data={searchData}
-            renderItem={({ item, index }) => {
-              <View>
-                <Text>
-                  {index}
-                  {". "}
-                  {item.title}
-                </Text>
-              </View>;
-            }}
-          /> */}
+          <FlatList
+            style={styles.searchList}
+            data={filteredData}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={ItemSeperatorView}
+            renderItem={({ item }) => <Text>{item.title}</Text>}
+          />
         </View>
       )}
     </SafeAreaView>
@@ -222,5 +249,8 @@ const styles = StyleSheet.create({
     height: 35,
     marginTop: 12,
     resizeMode: "contain",
+  },
+  searchList: {
+    padding: 20,
   },
 });
