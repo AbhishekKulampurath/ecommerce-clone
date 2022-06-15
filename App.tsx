@@ -1,13 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './screens/Home';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Explore from './screens/Explore';
-import Studio from './screens/Studio';
-import Profile from './screens/Profile';
-import Categories from './screens/Categories';
-import BottomTabs from './components/BottomTabs';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import Home from "./screens/Home";
+import { DrawerActions, NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Explore from "./screens/Explore";
+import Studio from "./screens/Studio";
+import Profile from "./screens/Profile";
+import Categories from "./screens/Categories";
+import BottomTabs from "./components/BottomTabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Login from "./screens/Login";
+import SearchBar from "./screens/SearchBar";
 
 // const Tab = createBottomTabNavigator();
 
@@ -26,12 +29,19 @@ import BottomTabs from './components/BottomTabs';
 //   );
 // }
 
+const Drawer = createDrawerNavigator();
+
 export default function App() {
   return (
- <BottomTabs/>
+    <NavigationContainer>
+      <Drawer.Navigator screenOptions={{ headerShown: false }}>
+        <Drawer.Screen name="Home" component={BottomTabs} />
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="Search" component={SearchBar} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
-  }
-
+}
 
 // import Home from './screens/Home';
 
@@ -53,4 +63,3 @@ export default function App() {
 //     justifyContent: 'center',
 //   },
 // });
-  

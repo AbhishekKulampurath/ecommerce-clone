@@ -1,10 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView } from "react-native";
+import React from "react";
 
 export default function Login() {
   return (
-    <View>
-      <Text>Login</Text>
-    </View>
-  )
+    <SafeAreaView>
+      <View style={{ alignContent: "center" }}>
+        <Text>Login</Text>
+      </View>
+    </SafeAreaView>
+  );
 }

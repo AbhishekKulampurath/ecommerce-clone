@@ -172,9 +172,5 @@ function Tabs() {
 }
 
 export default function BottomTabs() {
-  return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
-  );
-  }
+  return <Tabs />;
+}
