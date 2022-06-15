@@ -69,7 +69,7 @@ export default function Navbar() {
     if (searchText == "") {
       setFilteredData(searchData);
     } else {
-      setFilteredData(result);
+      setFilteredData(searchResult);
     }
   }, [searchText]);
 
@@ -78,9 +78,9 @@ export default function Navbar() {
   }, [filteredData]);
 
   //SearchResult
-  const result = searchData.filter((title) => {
-    if (title.title.startsWith(searchText) !== null) {
-      return title.title.startsWith(searchText);
+  const searchResult = searchData.filter((e) => {
+    if (e.title.startsWith(searchText) !== null) {
+      return e.title.toLowerCase().startsWith(searchText.toLowerCase());
     }
   });
 
