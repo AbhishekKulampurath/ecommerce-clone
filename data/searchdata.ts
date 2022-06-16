@@ -6,14 +6,14 @@ interface SearchData {
 
 
 const searchData : SearchData[] = [
-    { id: 1, title: "First Item" },
-    { id: 2, title: "Second Item" },
-    { id: 3, title: "Third Item" },
-    { id: 4, title: "Fourth Item" },
-    { id: 5, title: "Fifth Item" },
-    { id: 6, title: "Seventh Item" },
-    { id: 7, title: "Eighth Item" },
-    { id: 8, title: "Ninth Item" },
+    { id: 1, title: "Kids" },
+    { id: 2, title: "Men" },
+    { id: 3, title: "Women" },
+    { id: 4, title: "Accessories" },
+    { id: 5, title: "Beauty" },
+    { id: 6, title: "Watches" },
+    { id: 7, title: "Sneakers" },
+    { id: 8, title: "Mobile Phones" },
   ];
 
 export{SearchData, searchData};

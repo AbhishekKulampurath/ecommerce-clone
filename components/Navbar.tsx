@@ -90,11 +90,13 @@ export default function Navbar() {
     console.log("Button clicked");
   };
 
+  //ClearSearch
   const clearSearch = () => {
     setSearchText("");
     setIsSearchCleared(true);
   };
 
+  //onSearchChange
   const onSearchChange = ({
     nativeEvent: { text },
   }: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -115,17 +117,18 @@ export default function Navbar() {
   // }
   // };
 
-  const ItemSeperatorView = () => {
-    return (
-      <View
-        style={{
-          height: 0.5,
-          width: "100%",
-          backgroundColor: "#c8c8c",
-        }}
-      />
-    );
-  };
+  // const ItemSeperatorView = () => {
+  //   return (
+  //     <View
+  //       style={{
+  //         height: 0.5,
+  //         width: "100%",
+  //         backgroundColor: "#c8c8c",
+  //         borderLeftWidth: 10,
+  //       }}
+  //     />
+  //   );
+  // };
 
   // const ItemView = ({item}) => {
   //   return (
@@ -138,7 +141,7 @@ export default function Navbar() {
   // };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ zIndex: 4 }}>
       {!isSearchBtnClicked && (
         <ScrollView
           horizontal
@@ -166,7 +169,7 @@ export default function Navbar() {
         </ScrollView>
       )}
       {isSearchBtnClicked && (
-        <View>
+        <View style={{ zIndex: 3 }}>
           <ScrollView horizontal>
             <TouchableOpacity onPress={onSearchToggle}>
               <Image source={tabs[6].image} style={styles.backButton} />
@@ -188,8 +191,9 @@ export default function Navbar() {
             style={styles.searchList}
             data={filteredData}
             keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={ItemSeperatorView}
-            renderItem={({ item }) => <Text>{item.title}</Text>}
+            renderItem={({ item }) => (
+              <Text style={styles.listText}>{item.title}</Text>
+            )}
           />
         </View>
       )}
@@ -251,6 +255,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   searchList: {
-    padding: 20,
+    position: "absolute",
+    zIndex: 3,
+    padding: 5,
+    color: "lightgrey",
+    backgroundColor: "#f8f8f8",
+    top: 47,
+    left: 40,
+    width: 300,
+    maxHeight: 169,
+  },
+  listText: {
+    fontSize: 18,
+    padding: 3,
+    borderColor: "lightgrey",
+    borderBottomWidth: 2,
   },
 });
