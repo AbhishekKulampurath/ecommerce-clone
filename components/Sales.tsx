@@ -23,13 +23,13 @@ const items = [
     text: "Sale-3",
   },
   {
-    image: require("../assets/images/sale-4.webp"),
+    image: require("../assets/images/sale-1.png"),
     text: "Sale-4",
   },
 ];
 export default function Sales() {
   return (
-    <View>
+    <View style={SaleStyle.page}>
       {items.map((item, index) => (
         <Image key={index} source={item.image} style={SaleStyle.card} />
       ))}
@@ -51,5 +51,8 @@ const SaleStyle = StyleSheet.create({
     width: 400,
     height: 250,
     marginTop: 5,
+  },
+  page: {
+    borderBottomWidth: 150,
   },
 });

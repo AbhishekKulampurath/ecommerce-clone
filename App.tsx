@@ -10,7 +10,7 @@ import Categories from "./screens/Categories";
 import BottomTabs from "./components/BottomTabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Login from "./screens/Login";
-import SearchBar from "./screens/SearchBar";
+import Drawer from "./screens/Drawer";
 
 // const Tab = createBottomTabNavigator();
 
@@ -29,18 +29,8 @@ import SearchBar from "./screens/SearchBar";
 //   );
 // }
 
-const Drawer = createDrawerNavigator();
-
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator screenOptions={{ headerShown: false }}>
-        <Drawer.Screen name="Home" component={BottomTabs} />
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="Search" component={SearchBar} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
+  return <Drawer />;
 }
 
 // import Home from './screens/Home';

@@ -12,7 +12,6 @@ import {
   ListViewBase,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import SearchBar from "../screens/SearchBar";
 import { Input, ListItem } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
 import { SearchData, searchData } from "../data/searchdata";
@@ -64,9 +63,10 @@ export default function Navbar() {
   const [isSearchCleared, setIsSearchCleared] = useState(false);
   const [filteredData, setFilteredData] = useState<SearchData[]>(searchData);
 
+  //UseEffects and Filtering
   useEffect(() => {
     console.log(searchText);
-    if (searchText == "") {
+    if (searchText === "") {
       setFilteredData(searchData);
     } else {
       setFilteredData(searchResult);
@@ -103,43 +103,7 @@ export default function Navbar() {
     setSearchText(text);
   };
 
-  // searchData.forEach(e => {
-  //   searchData?.length > 0 && searchData?.filter((e) => e.title === text)
-  // });
-
-  // if (
-  //   searchData?.length > 0 &&
-  //   searchData?.filter((u) => u?.title === text) === true
-  // ) {
-  //   setFilteredData(
-  //     searchData?.length > 0 && searchData?.filter((u) => u?.title === text)
-  //   );
-  // }
-  // };
-
-  // const ItemSeperatorView = () => {
-  //   return (
-  //     <View
-  //       style={{
-  //         height: 0.5,
-  //         width: "100%",
-  //         backgroundColor: "#c8c8c",
-  //         borderLeftWidth: 10,
-  //       }}
-  //     />
-  //   );
-  // };
-
-  // const ItemView = ({item}) => {
-  //   return (
-  //     <Text>
-  //       {item.id}
-  //       {". "}
-  //       {item.title}
-  //     </Text>
-  //   );
-  // };
-
+  //
   return (
     <SafeAreaView style={{ zIndex: 4 }}>
       {!isSearchBtnClicked && (
@@ -183,11 +147,9 @@ export default function Navbar() {
             <TouchableOpacity onPressIn={clearSearch}>
               <Image source={tabs[7].image} style={styles.clearButton} />
             </TouchableOpacity>
-            {/* <TouchableOpacity>
-            <Image source={tabs[2].image} style={styles.MenuIcon} />
-          </TouchableOpacity> */}
           </ScrollView>
           <FlatList
+            showsVerticalScrollIndicator={false}
             style={styles.searchList}
             data={filteredData}
             keyExtractor={(item, index) => index.toString()}
