@@ -50,7 +50,7 @@ const SaleStyle = StyleSheet.create({
   card: {
     width: 400,
     height: 250,
-    marginTop: 5,
+    marginTop: 4,
   },
   page: {
     borderBottomWidth: 150,

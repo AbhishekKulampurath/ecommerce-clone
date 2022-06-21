@@ -36,9 +36,10 @@ export default function Filter() {
   return (
     <View
       style={{
-        marginTop: 5,
         backgroundColor: "#fff",
-        paddingVertical: 10,
+        paddingVertical: 3,
+        height:90,
+        bottom:5
       }}
     >
       <ScrollView
@@ -53,6 +54,7 @@ export default function Filter() {
               alignItems: "flex-start",
               marginRight: 25,
               marginLeft: 10,
+              marginTop:6
             }}
           >
             <TouchableOpacity>

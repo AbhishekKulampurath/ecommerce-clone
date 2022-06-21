@@ -15,13 +15,17 @@ import React, { useEffect, useState } from "react";
 import { Input, ListItem } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
 import { SearchData, searchData } from "../data/searchdata";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // interface Props {
 //   item: {
 //     id: number;
 //     title: string;
 //   };
 // }
+
+const storeData = async (value:type) => {
+  
+}
 
 const tabs = [
   {
@@ -62,6 +66,7 @@ export default function Navbar() {
   const [searchText, setSearchText] = useState("");
   const [isSearchCleared, setIsSearchCleared] = useState(false);
   const [filteredData, setFilteredData] = useState<SearchData[]>(searchData);
+  const [searchString, setSearchString] = useState(String);
 
   //UseEffects and Filtering
   useEffect(() => {
@@ -95,6 +100,44 @@ export default function Navbar() {
     setSearchText("");
     setIsSearchCleared(true);
   };
+
+
+  //Cache
+  const cacheSearch = () => {
+      setSearchString(searchText);
+      console.log("cache this ", searchString);
+      storeData();
+  }
+
+  //StoreCache
+  const storeData =async () => {
+    console.log("executing storeData");
+    
+    try {
+
+      console.log("This is jsonValue", searchString);
+      
+      await AsyncStorage.setItem('@storage_Key', searchString)
+    }catch (e){
+      console.log("caught in storecache");
+      
+    }
+  }
+
+  //ReadCache
+  const getData =async () => {
+    console.log("From getData before try");
+    try{
+      const value = await AsyncStorage.getItem('@storage_Key')
+      console.log("From getData", value);
+      if(value !== null){
+
+      } 
+    }
+    catch (e) {
+
+    }
+  }
 
   //onSearchChange
   const onSearchChange = ({
@@ -133,7 +176,11 @@ export default function Navbar() {
         </ScrollView>
       )}
       {isSearchBtnClicked && (
-        <View style={{ zIndex: 3 }}>
+        <View style={{
+          bottom:14,
+           zIndex: 3,
+           paddingVertical:3
+        }}>
           <ScrollView horizontal>
             <TouchableOpacity onPress={onSearchToggle}>
               <Image source={tabs[6].image} style={styles.backButton} />
@@ -146,6 +193,9 @@ export default function Navbar() {
             />
             <TouchableOpacity onPressIn={clearSearch}>
               <Image source={tabs[7].image} style={styles.clearButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPressIn={cacheSearch} onPressOut = {getData}>
+              <Image source={tabs[2].image} style={styles.clearButton} />
             </TouchableOpacity>
           </ScrollView>
           <FlatList
@@ -169,7 +219,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 30,
     height: 30,
-    marginTop: 6,
+    marginTop: 7,
     resizeMode: "contain",
   },
   myntraLogo: {
@@ -177,43 +227,47 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 80,
     height: 33,
-    marginTop: 7,
+    marginTop: 8,
     resizeMode: "stretch",
   },
   navbarStyle: {
-    paddingBottom: 5,
-    paddingTop: 7,
+    paddingBottom: 1,
+    paddingTop: 1,
+    bottom:18,
+    height:55,
     backgroundColor: "#fff",
   },
   menuIcon: {
     left: 5,
     width: 30,
     height: 30,
-    marginTop: 6,
+    marginTop: 7,
     resizeMode: "contain",
   },
   searchContainer: {
-    marginTop: 8,
+    marginTop: 1,
     marginLeft: 10,
-    width: 300,
-    height: 44,
+    width: 250,
+    height: 50,
     borderRadius: 1,
     flex: 1,
     backgroundColor: "#f8f8f8",
     alignItems: "center",
+    bottom:13,
+    fontSize:16
   },
   backButton: {
     marginLeft: 5,
     width: 25,
     height: 30,
-    marginTop: 15,
     resizeMode: "contain",
+    bottom:2
   },
   clearButton: {
     marginLeft: 8,
     width: 30,
     height: 35,
-    marginTop: 12,
+    bottom:2,
     resizeMode: "contain",
   },
   searchList: {
@@ -222,7 +276,7 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "lightgrey",
     backgroundColor: "#f8f8f8",
-    top: 47,
+    top: 35,
     left: 40,
     width: 300,
     maxHeight: 169,
