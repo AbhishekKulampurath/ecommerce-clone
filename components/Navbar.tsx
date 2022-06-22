@@ -23,10 +23,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //   };
 // }
 
-const storeData = async (value:type) => {
-  
-}
-
 const tabs = [
   {
     image: require("../assets/images/menu.png"),
@@ -61,12 +57,19 @@ const tabs = [
     text: "Clear",
   },
 ];
+
+const noResult = [{
+  title : "No Results",
+  index : 1
+}
+]
 export default function Navbar() {
   const [isSearchBtnClicked, setIsSearchBtnClicked] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isSearchCleared, setIsSearchCleared] = useState(false);
   const [filteredData, setFilteredData] = useState<SearchData[]>(searchData);
   const [searchString, setSearchString] = useState(String);
+  const [isSearched, setIsSearched] = useState(false);
 
   //UseEffects and Filtering
   useEffect(() => {
@@ -81,7 +84,11 @@ export default function Navbar() {
   useEffect(() => {
     console.log(filteredData);
   }, [filteredData]);
-
+  useEffect(() => {
+    setIsSearched(true);
+    storeData();
+  },[searchString])
+ 
   //SearchResult
   const searchResult = searchData.filter((e) => {
     if (e.title.startsWith(searchText) !== null) {
@@ -99,6 +106,7 @@ export default function Navbar() {
   const clearSearch = () => {
     setSearchText("");
     setIsSearchCleared(true);
+    setIsSearched(false);
   };
 
 
@@ -106,7 +114,6 @@ export default function Navbar() {
   const cacheSearch = () => {
       setSearchString(searchText);
       console.log("cache this ", searchString);
-      storeData();
   }
 
   //StoreCache
@@ -130,8 +137,9 @@ export default function Navbar() {
     try{
       const value = await AsyncStorage.getItem('@storage_Key')
       console.log("From getData", value);
-      if(value !== null){
 
+      if(value !== null){
+        setSearchString(value);
       } 
     }
     catch (e) {
@@ -198,6 +206,17 @@ export default function Navbar() {
               <Image source={tabs[2].image} style={styles.clearButton} />
             </TouchableOpacity>
           </ScrollView>
+          {isSearched && (
+           <FlatList
+           showsVerticalScrollIndicator={false}
+           style={styles.searchList}
+           data={noResult}
+           renderItem={() => (
+             <Text style={styles.listText}>{searchString}</Text>
+           )}
+         />
+          )}
+          {!isSearched && (
           <FlatList
             showsVerticalScrollIndicator={false}
             style={styles.searchList}
@@ -206,7 +225,7 @@ export default function Navbar() {
             renderItem={({ item }) => (
               <Text style={styles.listText}>{item.title}</Text>
             )}
-          />
+          />)}
         </View>
       )}
     </SafeAreaView>
