@@ -1,7 +1,6 @@
 interface SearchData {
     id : number,
-    title : string
-    
+    title : string    
 }
 
 const searchData : SearchData[] = [
